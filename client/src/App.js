@@ -8,10 +8,8 @@ import Write from "./pages/write/Write";
 import {
   BrowserRouter as Router,
   Routes,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
-import SinglePost from "./components/singlePost/SinglePost";
 
 function App() {
   const user = true;

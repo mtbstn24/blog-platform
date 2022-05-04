@@ -2,11 +2,14 @@ const express = require("express"); //import the module 'express' that is needed
 const app = express(); //accessing the createApplication function inside the express module
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
+const multer = require("multer"); //middleware mainly used for uploading files
+const cors = require("cors");
 const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
 const postRoute = require("./routes/posts");
 const categoryRoute = require("./routes/categories");
-const multer = require("multer"); //middleware mainly used for uploading files
+
+app.use(cors());
 
 app.use(express.json()); //It parses incoming JSON requests and puts the parsed data in req. body 
 
@@ -17,7 +20,7 @@ mongoose.connect(process.env.MONGO_URL, {
     useUnifiedTopology: true
 }).then(console.log("Connected to MongoDB")).catch(err=>console.log(err));
 
-//gives full control on storing files to disk with option - destination, filename
+//gives full control on storing files to disk with options - destination, filename
 const storage = multer.diskStorage({
     destination:(req,file,cb) =>{
         cb(null,"images")
@@ -38,7 +41,8 @@ app.use("/api/users", userRoute)
 app.use("/api/posts", postRoute)
 app.use("/api/categories", categoryRoute)
 
+const port = "5000";
 //Binds and listens for connections on the specified host and port. returns http.Server object
-app.listen("5000", ()=>{
-    console.log("Backend is running.");
+app.listen(port, ()=>{
+    console.log(`Backend is running on port ${port}.`);
 })
