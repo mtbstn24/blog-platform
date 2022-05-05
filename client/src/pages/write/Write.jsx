@@ -16,7 +16,7 @@ export default function Write(){
             desc
         };
         if(file){
-            const data =new FormData(); //creates new formData object
+            const data =new FormData(); //creates new formData object with key value pairs
             const filename = Date.now() + file.name;
             data.append("name",filename)
             data.append("file",file)
